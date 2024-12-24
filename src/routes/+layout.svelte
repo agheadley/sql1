@@ -9,10 +9,9 @@
 
 	
 	<header>
-		<p>Testing Edge / SupabaseClient / Drizzle</p>
+		<p>Testing Edge / SupabaseClient</p>
 		<nav>
 			<a href="/">Home</a>
-			<a href="/orm">Admin</a>
 			
 		</nav>
 	</header>

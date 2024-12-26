@@ -28,6 +28,25 @@ npm run dev
 npm run dev -- --open
 ```
 
+## supabase table access
+
+- set a policy to access a table (... by table > View policies)
+
+```
+alter policy "all1"
+on "public"."test_person_table"
+to public
+using (
+  true
+);
+```
+
+## supabase dashboard
+
+- Settings > API
+- enable data API
+- limit on rows set to 2000
+
 ## types
 
 [supabase types for your project](https://supabase.com/docs/guides/api/rest/generating-types)

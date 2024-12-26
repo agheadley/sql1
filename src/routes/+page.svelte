@@ -1,39 +1,36 @@
 <script lang="ts">
 
+let data: any[] = [];
 
-let data:any = [];
+let testReadSupabaseClient = async () => {
+    let t1 = Date.now();
+    let response = await fetch('/api/read', {
+        method: 'POST',
+        body: JSON.stringify({ table: "test_person_table" }),
+        headers: { 'content-type': 'application/json' }
+    });
+    data = await response.json();
+    let t = Date.now() - t1;
 
-let testReadSupabaseClient=async()=>{
-	let t1=Date.now();
-	let response = await fetch('/api/read', {
-		method: 'POST',
-		body: JSON.stringify({table:"test_table"}),
-		headers: {'content-type': 'application/json'}
-	});
-	data= await response.json();
-	let t=Date.now()-t1;
-	
-	console.log('testReadSupabaseClient()',data);
-	console.log(`${t} ms`);
+    console.log('testReadSupabaseClient()', data);
+    console.log(`${t} ms`);
+
+   };
+
+let testReadDataAPI = async () => {
+    let t1 = Date.now();
+    let response = await fetch('/edge/read', {
+        method: 'POST',
+        body: JSON.stringify({ table: "test_person_table", select: `id,name,age,test_location_table(id,country_code)` }),
+        headers: { 'content-type': 'application/json' }
+    });
+    data = await response.json();
+    let t = Date.now() - t1;
+
+    console.log('testReadDataAPI()', data);
+    console.log(`${t} ms`);
 
 };
-
-let testReadDataAPI=async()=>{
-	let t1=Date.now();
-	let response = await fetch('/edge/read', {
-		method: 'POST',
-		body: JSON.stringify({table:"test_table",select:'*'}),
-		headers: {'content-type': 'application/json'}
-	});
-	data= await response.json();
-	let t=Date.now()-t1;
-	
-	console.log('testReadDataAPI()',data);
-	console.log(`${t} ms`);
-
-};
-
-
 
 </script>
 
@@ -43,7 +40,7 @@ let testReadDataAPI=async()=>{
 </svelte:head>
 
 <p class="notice">
-	Testing supabase edge and drizzle ...
+	Testing supabase edge js client ...
 </p>
 
 <article>
@@ -63,9 +60,9 @@ let testReadDataAPI=async()=>{
 		</thead>
 		{/if}
 		<tbody>
-			{#each data as row,rowIndex}
+			{#each data as row:any,rowIndex}
 				<tr>
-					{#each Object.keys(row) as col,colIndex}
+					{#each Object.keys(data[0]) as col,colIndex}
 						<td>{row[col]}</td>
 					{/each}
 				</tr>

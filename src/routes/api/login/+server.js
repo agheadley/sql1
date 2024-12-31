@@ -9,7 +9,7 @@ export async function POST({request}) {
     const { data, error } = await supabase.auth.signInWithOtp({
         email: req.email,
         options: {
-          emailRedirectTo: 'https://localhost:5173/loginRedirect',
+          emailRedirectTo: 'https://sql1-sooty.vercel.app/loginRedirect',
           shouldCreateUser:false
         }
       

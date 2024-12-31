@@ -38,6 +38,7 @@ export async function POST({request}) {
 
     //const url  =`https://xhuyamsoabffrqjbhwsx.supabase.co/rest/v1/assessment_table?id=eq.${req.id}&select=${select}`;
     let url  =`https://xhuyamsoabffrqjbhwsx.supabase.co/rest/v1/${req.table}?limit=2000&select=${req.select}`;
+    if(req.id) url=`${url}&id=eq.${req.id}`;
     if(req.filter && req.filter!=='') url+=`&${req.filter}`;
     if(req.order && req.order!=='') url+=`&${req.order}`;
     

@@ -12,7 +12,7 @@
 		<p>Testing Edge / SupabaseClient</p>
 		<nav>
 			<a href="/">Home</a>
-			<a href="/insert">Insert</a>
+			<a href="/login">Login</a>
 			
 			
 		</nav>

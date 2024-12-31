@@ -21,7 +21,7 @@ let testReadDataAPI = async () => {
     let t1 = Date.now();
     let response = await fetch('/edge/read', {
         method: 'POST',
-        body: JSON.stringify({ table: "test_person_table", select: `id,name,age,test_location_table(country_code)` }),
+        body: JSON.stringify({ table: "test_person_table",id:7, select: `id,name,age,test_location_table(country_code)` }),
         headers: { 'content-type': 'application/json' }
     });
     data = await response.json();

@@ -23,14 +23,8 @@
     
     
     <article>
-        <h4>Test supabaseClent vs Edge/DataAPI</h4>
-        <p>
-            <label for="email">User email address</label>
-            <input type=text id="email" placeholder="email" bind:value={email}/>
-        </p>
-        <p>
-            <button onclick={generateMagicLink}>Login</button>
-        </p>
+        <h4>Logged in user ...</h4>
+       
     </article>
     
     

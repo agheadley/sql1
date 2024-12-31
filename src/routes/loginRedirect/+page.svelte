@@ -1,19 +1,24 @@
 <script lang="ts">
 
-    let email:string='';
-    let generateMagicLink = async () => {
-        console.log('EMAIL',email);
-        let response = await fetch('/api/login', {
+let userData:any;
+    
+       $effect(() => {
+        (async () => {
+            let response = await fetch('/api/getUser', {
             method: 'POST',
-            body: JSON.stringify({ email: email }),
+            body: JSON.stringify({}),
             headers: { 'content-type': 'application/json' }
-        });
-        let res = await response.json();
-        console.log('generateMagicLink()', res);
-       
-       };
+            });
+            let res = await response.json();
+            console.log('api/getUser', res);
+            let userData=res;
+
+
+
+        })();
+	});
     
-    
+
     </script>
     
     <svelte:head>
@@ -24,7 +29,7 @@
     
     <article>
         <h4>Logged in user ...</h4>
-       
+        <p>{JSON.stringify(userData)}</p>
     </article>
     
     

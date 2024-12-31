@@ -12,7 +12,8 @@
         console.log('generateMagicLink()', res);
        
        };
-    
+
+      
     
     </script>
     

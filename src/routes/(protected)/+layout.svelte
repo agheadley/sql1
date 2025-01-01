@@ -13,7 +13,7 @@
             <p>Testing Edge / SupabaseClient</p>
             <nav>
                 <a href="/">Home</a>
-                
+                <a target="_blank" href="https://simplecss.org/demo">Simple CSS</a>
                 
             </nav>
         </header>

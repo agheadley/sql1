@@ -1,20 +1,25 @@
 <script lang="ts">
-
 import '$lib/app.css';
 
 let { children } = $props();
 
 let email:string=$state('');
-    let generateMagicLink = async () => {
-        console.log('EMAIL',email);
-        let response = await fetch('/api/login', {
-            method: 'POST',
-            body: JSON.stringify({ email: email }),
-            headers: { 'content-type': 'application/json' }
-        });
-        let res = await response.json();
-        console.log('generateMagicLink()', res);
-       
+
+let generateMagicLink = async () => {
+    console.log('EMAIL',email);
+    
+    let response = await fetch('/auth/link', {
+        method: 'POST',
+        body: JSON.stringify({ email: email }),
+        headers: { 'content-type': 'application/json' }
+    });
+    let res = await response.json();
+    console.log('generateMagicLink()', res);
+    
+
+    
+
+    
 };
 
 </script>

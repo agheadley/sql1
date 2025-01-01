@@ -1,6 +1,10 @@
 <script lang="ts">
 
-    let email:string='';
+import '$lib/app.css';
+
+let { children } = $props();
+
+let email:string=$state('');
     let generateMagicLink = async () => {
         console.log('EMAIL',email);
         let response = await fetch('/api/login', {
@@ -11,20 +15,28 @@
         let res = await response.json();
         console.log('generateMagicLink()', res);
        
-       };
+};
 
-      
-    
-    </script>
-    
-    <svelte:head>
+</script>
+
+
+<svelte:head>
         <title>Login</title>
-        <meta name="" content="login..." />
-    </svelte:head>
-    
-    
+        <meta name="" content="Supabase demo..." />
+</svelte:head>
+
+<div class="container">
+    <header>
+        <p>Testing Edge / SupabaseClient</p>
+           
+        <h4>Application Login</h4>
+        <nav>
+            <a href="/">Home</a>
+            
+            
+        </nav>
+    </header>
     <article>
-        <h4>Test supabaseClent vs Edge/DataAPI</h4>
         <p>
             <label for="email">User email address</label>
             <input type=text id="email" placeholder="email" bind:value={email}/>
@@ -33,9 +45,14 @@
             <button onclick={generateMagicLink}>Login</button>
         </p>
     </article>
+   
+
+    <footer>
+		<p>Sveltekit, Supabase (Postgres SQL) , Typescript, Anthony Headley</p>
+	</footer>
+	
+</div>
+
+<style>
     
-    
-    <style>
-    
-    </style>
-    
+</style>

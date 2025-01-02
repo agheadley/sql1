@@ -22,6 +22,11 @@ let generateMagicLink = async () => {
     
 };
 
+$effect(() => {
+    
+});
+
+
 </script>
 
 
@@ -30,17 +35,6 @@ let generateMagicLink = async () => {
         <meta name="" content="Supabase demo..." />
 </svelte:head>
 
-<div class="container">
-    <header>
-        <p>Testing Edge / SupabaseClient</p>
-           
-        <h4>Application Login</h4>
-        <nav>
-            <a href="/">Home</a>
-            
-            
-        </nav>
-    </header>
     <article>
         <p>
             <label for="email">User email address</label>
@@ -51,12 +45,10 @@ let generateMagicLink = async () => {
         </p>
     </article>
    
+    
+   
 
-    <footer>
-		<p>Sveltekit, Supabase (Postgres SQL) , Typescript, Anthony Headley</p>
-	</footer>
-	
-</div>
+
 
 <style>
     

@@ -1,5 +1,7 @@
 <script lang="ts">
 import '$lib/app.css';
+import {supabase} from '$lib/supabaseClient';
+import {PUBLIC_REDIRECT_URL} from '$env/static/public';
 
 let { children } = $props();
 
@@ -8,6 +10,7 @@ let email:string=$state('');
 let generateMagicLink = async () => {
     console.log('EMAIL',email);
     
+    /*
     let response = await fetch('/auth/link', {
         method: 'POST',
         body: JSON.stringify({ email: email }),
@@ -15,6 +18,20 @@ let generateMagicLink = async () => {
     });
     let res = await response.json();
     console.log('generateMagicLink()', res);
+    */
+
+    const { data, error } = await supabase.auth.signInWithOtp({
+        email: email,
+        options: {
+          emailRedirectTo: PUBLIC_REDIRECT_URL,
+          shouldCreateUser:false
+        }
+      
+    });
+
+    if(error) console.log('MAGIC LINK ERROR',error);
+    else console.log('MAGIC LINK RESPONSE',data);
+    
     
 
     

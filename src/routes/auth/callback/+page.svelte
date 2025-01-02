@@ -1,20 +1,23 @@
 <script lang="ts">
 import '$lib/app.css';
-//import {page} from '$app/stores';
 import { supabase } from "$lib/supabaseClient";
-
+import { goto } from '$app/navigation';
+   
 let { children } = $props();
 
 
 let authCheck=async()=>{
+    console.log('callback...');
     const { data:{user} } = await supabase.auth.getUser();
     console.log('authCheck',user);
+    if(user?.role==='authenticated' && user?.is_anonymous===false) goto('/');
+    else goto('/login');
 
+    
 };
     
 
 $effect(() => {
-
     authCheck();  
 });
 

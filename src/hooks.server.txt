@@ -7,8 +7,8 @@ export async function handle({ event, resolve }) {
 	const { data:{user} } = await supabase.auth.getUser();
     console.log('hooks.server.js , authCheck',user);
     console.log(event.route.id);
-    if(user?.aud!=='authenticated' && event.route.id!=='/login'){
-        //throw redirect(302,'/login');
+    if((user?.aud!=='authenticated' || user===null) && event.route.id!=='/login'){
+        throw redirect(302,'/login');
     } 
 
 

@@ -2,26 +2,60 @@
     import '$lib/app.css';
     import { goto } from '$app/navigation';
     import { supabase } from "$lib/supabaseClient";
-    import { page } from '$app/stores';
-    import { navigating } from '$app/stores';
-
+    import { page } from '$app/state';
+    import { navigating } from '$app/state';
+    
     let usr=$state({email:''});
 
     let { children } = $props();
 
-    let authCheck=async()=>{
-        console.log('callback...');
-        const { data:{user} } = await supabase.auth.getUser();
-        console.log('authCheck',user);
-        if(user?.role==='authenticated' && user?.is_anonymous===false) usr.email=user?.email ? user.email : '';
+    let logout=async()=>{
+        const { error } = await supabase.auth.signOut();
+        if(error) {
+            console.log('LOGOUT ERROR',error);
+            usr.email='';
+        }
         else goto('/login');
+    };
 
+    let authCheck=async()=>{
+        console.log('page.route.id',page.route.id);
+        //if($page.route.id!=='/login') {
+            const { data:{user} } = await supabase.auth.getUser();
+            console.log('authCheck',user);
+            if(user===null) goto('/login');
+            else {
+                usr.email=user?.email ? user.email : '';
+            }
+        //}
+        
     };
 
     $effect(() => {
-        console.log('layout...');
-        if($navigating) authCheck();
+        (async () => {
+            console.log('layout.svelte $effect()');
+            const { data:{user} } = await supabase.auth.getUser();
+            console.log('authCheck',user);
+            if(user===null) {
+                usr.email='';
+                goto('/login');
+            }
+            else {
+                usr.email=user?.email ? user.email : '';
+            }
+			if(navigating) {
+                console.log('navigating',page.route.id);
+               // authCheck();
+            }
+            
+		})()
+
+        
     });
+
+   
+
+   
 </script>
 
 
@@ -31,12 +65,12 @@
         <header>
             <div class="row">
                 <div class="col"><p>Testing Edge / SupabaseClient</p></div>
-                <div class="col">{usr.email}</div>
+                <div class="col">{usr.email} {#if usr.email!==''}<a href={`javascript:void(0)`} onclick={logout}>Logout</a> {/if}</div>
             </div>
             <nav>
-                <a href="/">Home</a>
+                <a href="/" aria-current={page.url.pathname === '/'}>Home</a>
                 <a target="_blank" href="https://simplecss.org/demo">Simple CSS</a>
-                <a href="/login">Login</a>
+                <a href="/login" aria-current={page.url.pathname === '/login'}>Login</a>
                 
             </nav>
             

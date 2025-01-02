@@ -2,8 +2,6 @@
     import '$lib/app.css';
     import { goto } from '$app/navigation';
     import { supabase } from "$lib/supabaseClient";
-    import { page } from '$app/state';
-    import { navigating } from '$app/state';
     
     let usr=$state({email:''});
 
@@ -18,21 +16,10 @@
         else goto('/login');
     };
 
-    let authCheck=async()=>{
-        console.log('page.route.id',page.route.id);
-        //if($page.route.id!=='/login') {
-            const { data:{user} } = await supabase.auth.getUser();
-            console.log('authCheck',user);
-            if(user===null) goto('/login');
-            else {
-                usr.email=user?.email ? user.email : '';
-            }
-        //}
-        
-    };
 
     $effect(() => {
         (async () => {
+            
             console.log('layout.svelte $effect()');
             const { data:{user} } = await supabase.auth.getUser();
             console.log('authCheck',user);
@@ -42,11 +29,9 @@
             }
             else {
                 usr.email=user?.email ? user.email : '';
+                 goto('/');
             }
-			if(navigating) {
-                console.log('navigating',page.route.id);
-               // authCheck();
-            }
+			 
             
 		})()
 
@@ -68,9 +53,9 @@
                 <div class="col">{usr.email} {#if usr.email!==''}<a href={`javascript:void(0)`} onclick={logout}>Logout</a> {/if}</div>
             </div>
             <nav>
-                <a href="/" aria-current={page.url.pathname === '/'}>Home</a>
+                <a href="/" >Home</a>
                 <a target="_blank" href="https://simplecss.org/demo">Simple CSS</a>
-                <a href="/login" aria-current={page.url.pathname === '/login'}>Login</a>
+                <a href="/login" >Login</a>
                 
             </nav>
             

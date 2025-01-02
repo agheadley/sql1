@@ -10,15 +10,7 @@ let email:string=$state('');
 let generateMagicLink = async () => {
     console.log('EMAIL',email);
     
-    /*
-    let response = await fetch('/auth/link', {
-        method: 'POST',
-        body: JSON.stringify({ email: email }),
-        headers: { 'content-type': 'application/json' }
-    });
-    let res = await response.json();
-    console.log('generateMagicLink()', res);
-    */
+   
 
     const { data, error } = await supabase.auth.signInWithOtp({
         email: email,
